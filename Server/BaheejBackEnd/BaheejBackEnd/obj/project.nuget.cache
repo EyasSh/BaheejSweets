@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xXEXPSEsV4r7BuHgPoxaUdssLSC/rr3nR2Qmmg11//N7w/und5jMJQBicZDgGaPUVsAK36vHFQFRT+E2fHZF8Q==",
+  "dgSpecHash": "JkpmLbJw+BkvLsUFShE5sGqMXOWWKQbSj7MYKoXt6tBK1d8xQLBq1yrDHvwB9LkJDs8N4RAJrKUrP6HbzzCnLQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\eyas\\source\\repos\\BaheejSweets\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\eyas\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\eyas\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\eyas\\.nuget\\packages\\mongodb.bson\\2.20.0\\mongodb.bson.2.20.0.nupkg.sha512",
+    "C:\\Users\\eyas\\.nuget\\packages\\mongodb.driver\\2.20.0\\mongodb.driver.2.20.0.nupkg.sha512",
     "C:\\Users\\eyas\\.nuget\\packages\\mongodb.driver.core\\2.20.0\\mongodb.driver.core.2.20.0.nupkg.sha512",
     "C:\\Users\\eyas\\.nuget\\packages\\mongodb.libmongocrypt\\1.8.0\\mongodb.libmongocrypt.1.8.0.nupkg.sha512",
     "C:\\Users\\eyas\\.nuget\\packages\\sharpcompress\\0.30.1\\sharpcompress.0.30.1.nupkg.sha512",
