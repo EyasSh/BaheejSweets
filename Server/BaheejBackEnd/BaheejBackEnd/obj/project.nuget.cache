@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3J4z8S7sHDSw5nbghvK8rUe5Yr/LW/LGQixk5glaKJ8z5r5MV/tlY7iuDr5dYU0ITm6jI+U+1yLUmO8Bblpgaw==",
+  "dgSpecHash": "xXEXPSEsV4r7BuHgPoxaUdssLSC/rr3nR2Qmmg11//N7w/und5jMJQBicZDgGaPUVsAK36vHFQFRT+E2fHZF8Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\eyas\\source\\repos\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
+  "projectFilePath": "C:\\Users\\eyas\\source\\repos\\BaheejSweets\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\eyas\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\eyas\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
