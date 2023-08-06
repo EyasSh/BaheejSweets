@@ -31,6 +31,19 @@
           }
         }
       },
+      "BCrypt.Net-Next/4.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "DnsClient/1.6.1": {
         "type": "package",
         "dependencies": {
@@ -423,6 +436,37 @@
         "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
         "tools/install.ps1",
         "tools/uninstall.ps1"
+      ]
+    },
+    "BCrypt.Net-Next/4.0.3": {
+      "sha512": "W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
+      "type": "package",
+      "path": "bcrypt.net-next/4.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net-next.4.0.3.nupkg.sha512",
+        "bcrypt.net-next.nuspec",
+        "ico.png",
+        "lib/net20/BCrypt.Net-Next.dll",
+        "lib/net20/BCrypt.Net-Next.xml",
+        "lib/net35/BCrypt.Net-Next.dll",
+        "lib/net35/BCrypt.Net-Next.xml",
+        "lib/net462/BCrypt.Net-Next.dll",
+        "lib/net462/BCrypt.Net-Next.xml",
+        "lib/net472/BCrypt.Net-Next.dll",
+        "lib/net472/BCrypt.Net-Next.xml",
+        "lib/net48/BCrypt.Net-Next.dll",
+        "lib/net48/BCrypt.Net-Next.xml",
+        "lib/net5.0/BCrypt.Net-Next.dll",
+        "lib/net5.0/BCrypt.Net-Next.xml",
+        "lib/net6.0/BCrypt.Net-Next.dll",
+        "lib/net6.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.0/BCrypt.Net-Next.dll",
+        "lib/netstandard2.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.1/BCrypt.Net-Next.dll",
+        "lib/netstandard2.1/BCrypt.Net-Next.xml",
+        "readme.md"
       ]
     },
     "DnsClient/1.6.1": {
@@ -1172,29 +1216,29 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "BCrypt.Net-Next >= 4.0.3",
       "MongoDB.Driver >= 2.20.0",
-      "MongoDB.Driver.Core >= 2.20.0",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\eyas\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\eyas_\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\eyas\\source\\repos\\BaheejSweets\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
+      "projectUniqueName": "C:\\Users\\eyas_\\OneDrive\\שולחן העבודה\\Baheej\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
       "projectName": "BaheejBackEnd",
-      "projectPath": "C:\\Users\\eyas\\source\\repos\\BaheejSweets\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
-      "packagesPath": "C:\\Users\\eyas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\eyas\\source\\repos\\BaheejSweets\\Server\\BaheejBackEnd\\BaheejBackEnd\\obj\\",
+      "projectPath": "C:\\Users\\eyas_\\OneDrive\\שולחן העבודה\\Baheej\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
+      "packagesPath": "C:\\Users\\eyas_\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\eyas_\\OneDrive\\שולחן העבודה\\Baheej\\Server\\BaheejBackEnd\\BaheejBackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\eyas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\eyas_\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1223,11 +1267,11 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
-          "MongoDB.Driver": {
+          "BCrypt.Net-Next": {
             "target": "Package",
-            "version": "[2.20.0, )"
+            "version": "[4.0.3, )"
           },
-          "MongoDB.Driver.Core": {
+          "MongoDB.Driver": {
             "target": "Package",
             "version": "[2.20.0, )"
           },

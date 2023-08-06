@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "BaheejBackEnd/1.0.0": {
         "dependencies": {
-          "MongoDB.Driver.Core": "2.20.0",
+          "MongoDB.Driver": "2.20.0",
           "Swashbuckle.AspNetCore": "6.5.0"
         },
         "runtime": {
@@ -68,6 +68,20 @@
         },
         "runtime": {
           "lib/netstandard2.1/MongoDB.Bson.dll": {
+            "assemblyVersion": "2.20.0.0",
+            "fileVersion": "2.20.0.0"
+          }
+        }
+      },
+      "MongoDB.Driver/2.20.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
+          "MongoDB.Bson": "2.20.0",
+          "MongoDB.Driver.Core": "2.20.0",
+          "MongoDB.Libmongocrypt": "1.8.0"
+        },
+        "runtime": {
+          "lib/netstandard2.1/MongoDB.Driver.dll": {
             "assemblyVersion": "2.20.0.0",
             "fileVersion": "2.20.0.0"
           }
@@ -258,6 +272,13 @@
       "sha512": "sha512-IXgb+uGslHBgy+JjfwepO06Vmq5itprTPJJtQotAhLMjmuDvbA7pfAs/2hTfqYbR39l7eli5bIwA3zqZHUkVlQ==",
       "path": "mongodb.bson/2.20.0",
       "hashPath": "mongodb.bson.2.20.0.nupkg.sha512"
+    },
+    "MongoDB.Driver/2.20.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pAxVtrIRTTuQG3xMBF3NfWumXqf/JT0i7eEzp06k4zin8zj1sroX0J/i/qzJ9JjHQMh3BSsQ4E209G5S6zkxrg==",
+      "path": "mongodb.driver/2.20.0",
+      "hashPath": "mongodb.driver.2.20.0.nupkg.sha512"
     },
     "MongoDB.Driver.Core/2.20.0": {
       "type": "package",
