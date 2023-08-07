@@ -131,3 +131,4 @@ C:\Users\eyas_\OneDrive\שולחן העבודה\Baheej\Server\BaheejBackEnd\Bahe
 C:\Users\eyas_\OneDrive\שולחן העבודה\Baheej\Server\BaheejBackEnd\BaheejBackEnd\obj\Debug\net6.0\BaheejBackEnd.csproj.CopyComplete
 C:\Users\eyas_\OneDrive\שולחן העבודה\Baheej\Server\BaheejBackEnd\BaheejBackEnd\obj\Debug\net6.0\BaheejBackEnd.genruntimeconfig.cache
 C:\Users\eyas_\OneDrive\שולחן העבודה\Baheej\Server\BaheejBackEnd\BaheejBackEnd\obj\Debug\net6.0\ref\BaheejBackEnd.dll
+C:\Users\eyas_\OneDrive\שולחן העבודה\Baheej\Server\BaheejBackEnd\BaheejBackEnd\bin\Debug\net6.0\BCrypt.Net-Next.dll
