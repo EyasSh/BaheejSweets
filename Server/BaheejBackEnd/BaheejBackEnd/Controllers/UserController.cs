@@ -21,7 +21,7 @@ namespace BaheejBackEnd.Controllers
         [Route("Signup")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateUser([Bind("_Id,_Name,_PhonNumber,")] User user)
+        public async Task<IActionResult> CreateUser([Bind("_Id,_Name,_PhoneNumber,")] User user)
         {
                 if (user == null)
                 {
