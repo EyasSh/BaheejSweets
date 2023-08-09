@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BaheejBackEnd.Controllers
 {
-    [Route("User")]
+    
     public class UserController : Controller
     {
         private MongoDBWrapper _MongoDBWrapper;
@@ -18,7 +18,7 @@ namespace BaheejBackEnd.Controllers
         {
             _MongoDBWrapper = MongoDBWrapper;
         }
-        [Route("Signup")]
+        [Route("Login")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CreateUser([Bind("_Id,_Name,_PhoneNumber,")] User user)
@@ -27,18 +27,18 @@ namespace BaheejBackEnd.Controllers
                 {
                     return  BadRequest(string.Empty);
                 }
-                var filter =Builders<User>.Filter.Where(x=>x._Id == user._Id);
+                var filter =Builders<User>.Filter.Where(x=>x._PhoneNumber == user._PhoneNumber);
                 var cursor = await _MongoDBWrapper.Users.FindAsync(filter);
                 
                 var resUser= cursor.ToList();
-                if (resUser.Count!=0)
+                if (resUser.Contains(user))
                 {
-                    return BadRequest("User already exists");
+                     return Ok(user);
                 }
                  else
                  {
                      
-                    user._PhoneNumber = BCrypt.Net.BCrypt.HashPassword(user._PhoneNumber);
+                    
                     await _MongoDBWrapper.Users.InsertOneAsync(user);
                     
                     return Ok(user);

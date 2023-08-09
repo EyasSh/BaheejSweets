@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BaheejBackEnd.Controllers
 {
     [ApiController]
-    [Route("[Requests]")]
+    [Route("/{id}/Requests")]
     public class RequestController: Controller
     {
         private MongoDBWrapper _MongoDBWrapper;

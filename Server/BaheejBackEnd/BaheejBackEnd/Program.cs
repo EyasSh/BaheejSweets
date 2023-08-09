@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<MongoDBWrapper>();
+builder.Services.AddSingleton<>();
 var app = builder.Build();
 
 
