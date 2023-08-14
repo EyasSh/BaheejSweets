@@ -1222,23 +1222,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\eyas_\\.nuget\\packages\\": {},
-    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\eyas\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\eyas_\\OneDrive\\שולחן העבודה\\Baheej\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
+      "projectUniqueName": "C:\\Users\\eyas\\source\\repos\\BaheejSweets\\BaheejSweets\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
       "projectName": "BaheejBackEnd",
-      "projectPath": "C:\\Users\\eyas_\\OneDrive\\שולחן העבודה\\Baheej\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
-      "packagesPath": "C:\\Users\\eyas_\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\eyas_\\OneDrive\\שולחן העבודה\\Baheej\\Server\\BaheejBackEnd\\BaheejBackEnd\\obj\\",
+      "projectPath": "C:\\Users\\eyas\\source\\repos\\BaheejSweets\\BaheejSweets\\Server\\BaheejBackEnd\\BaheejBackEnd\\BaheejBackEnd.csproj",
+      "packagesPath": "C:\\Users\\eyas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\eyas\\source\\repos\\BaheejSweets\\BaheejSweets\\Server\\BaheejBackEnd\\BaheejBackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\eyas_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\eyas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

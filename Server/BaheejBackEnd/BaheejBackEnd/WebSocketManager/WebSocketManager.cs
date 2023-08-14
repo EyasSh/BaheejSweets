@@ -9,12 +9,20 @@ namespace BaheejBackEnd.WebSocketManager
     {
         private readonly ConcurrentDictionary<ObjectId, WebSocket> _websockets = new ConcurrentDictionary<ObjectId, WebSocket>();
 
-        public async Task HandleConnectionAsync(HttpContext context, ObjectId userId)
+        // Handling Connection Handshake
+        /*
+        public async Task HandleConnectionAsync(HttpContext context, ObjectId requestId)
         {
             if(context.WebSockets.IsWebSocketRequest)
             {
                 WebSocket ws = await context.WebSockets.AcceptWebSocketAsync();
+                using (ws)
+                {
+                    await 
+                }
+
             }
         }
+        */
     }
 }
