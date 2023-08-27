@@ -1,5 +1,8 @@
 using BaheejBackEnd.MongoDB;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
+using WebSocketSharp;
+using WebSocketSharp.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +13,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<MongoDBWrapper>();
-//builder.Services.AddSingleton<>();
+builder.Services.AddSingleton<WebSocketServer>(_ =>
+{
+    var wssv = new WebSocketServer("ws://localhost:8080");
+    //Use the add socket Service here
+    return wssv;
+});
 var app = builder.Build();
 
 

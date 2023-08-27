@@ -178,3 +178,4 @@ C:\Users\eyas\source\repos\BaheejSweets\BaheejSweets\Server\BaheejBackEnd\Baheej
 C:\Users\eyas\source\repos\BaheejSweets\BaheejSweets\Server\BaheejBackEnd\BaheejBackEnd\obj\Debug\net6.0\BaheejBackEnd.csproj.CopyComplete
 C:\Users\eyas\source\repos\BaheejSweets\BaheejSweets\Server\BaheejBackEnd\BaheejBackEnd\obj\Debug\net6.0\BaheejBackEnd.genruntimeconfig.cache
 C:\Users\eyas\source\repos\BaheejSweets\BaheejSweets\Server\BaheejBackEnd\BaheejBackEnd\obj\Debug\net6.0\ref\BaheejBackEnd.dll
+C:\Users\eyas\source\repos\BaheejSweets\BaheejSweets\Server\BaheejBackEnd\BaheejBackEnd\bin\Debug\net6.0\websocket-sharp-core.dll

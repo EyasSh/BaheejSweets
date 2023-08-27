@@ -52,11 +52,15 @@
             },
             "MongoDB.Driver": {
               "target": "Package",
-              "version": "[2.20.0, )"
+              "version": "[2.21.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "websocketsharp.core": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [
