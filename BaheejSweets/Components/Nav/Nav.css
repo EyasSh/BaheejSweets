@@ -1,0 +1,17 @@
+nav{
+    display: flex;
+    background-color: rgba(255,95,137,1);
+    justify-content: space-around;
+    height: 4vh;
+}
+button{
+    top:0.5vh;
+    border: none;
+    background-color: rgba(255,81,0,0.5);
+    color: white;
+    justify-items: baseline;
+}
+button:hover{
+    background-color: rgba(255,81,0,1);
+    cursor: pointer;
+}
