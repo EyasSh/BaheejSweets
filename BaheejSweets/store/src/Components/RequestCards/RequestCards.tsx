@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react'
 import './RequestCards.css'
-import { RequestCardProps } from '../Home/Home';
+import { RequestCardProps } from '../../Types/RequestType'
 function RequestCard({request,className}:RequestCardProps):ReactElement{
     let classname:string="request-card "+className
     return(
