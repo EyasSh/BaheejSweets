@@ -1,13 +1,23 @@
 import React, {ReactElement} from 'react'
 import './RequestCards.css'
-import { RequestCardProps } from '../../Types/RequestType'
-function RequestCard({request,className}:RequestCardProps):ReactElement{
-    let classname:string="request-card "+className
+import {Request} from '../../Types/RequestType'
+function RequestCard({clientName,request}:Request):ReactElement{
+    
+    let itemsJSX:JSX.Element[]=[]
+    for (let i = 0; i < request.length; i++) {
+        itemsJSX.push(<hr className='modern'></hr>)
+        itemsJSX.push(
+            <span key={i}>
+                Name: {request[i].productName+"\n"} Price: {request[i].price.toString()+"\n"} Quantity: {request[i].quantity.toString()}
+            </span>
+            
+        );
+    }
     return(
-        <div className={classname}>
-                    <span className="client">Client Name Here</span>
-                    <p></p>
-                    <span>{request}</span>
+        <div className="request-card">
+                    <span className="client">{clientName}</span>
+
+                    {itemsJSX}
         </div>
     );
 }

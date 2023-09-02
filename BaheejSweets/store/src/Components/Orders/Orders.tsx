@@ -1,8 +1,12 @@
-import React from "react"
-function Orders(){
+import React, { ReactElement } from "react";
+import RequestCard from "../RequestCards/RequestCards";
+import './Orders.css'
+function Orders():ReactElement{
     return(
-            <div>
-                
+            <div className="request-grid">
+                 {/* <RequestCard  />
+                <RequestCard />
+                <RequestCard /> */}
             </div>
     );
 }

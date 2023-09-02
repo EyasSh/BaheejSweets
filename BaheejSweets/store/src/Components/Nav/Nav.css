@@ -2,7 +2,7 @@ nav {
     display: flex;
     background-color: #4d4c22; 
     justify-content: space-around;
-    height: 4vh;
+    height: 40px;
 }
 
 button {

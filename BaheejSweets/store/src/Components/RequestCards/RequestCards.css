@@ -1,4 +1,16 @@
+@keyframes popIn {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
 .request-card {
+   /*font and text styles*/
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-color: wheat;
     padding: 1%;
     border-radius: 8px;
@@ -7,13 +19,23 @@
   
     /* Just to ensure text inside doesn't overflow */
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: fit-content;
+    text-overflow:unset;
+    white-space: pre-wrap;
+    width: 100%;
     cursor: pointer;
+    animation: popIn 1.5s backwards;
+    animation-play-state: running;
   }
   
   .request-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgb(230, 207, 164); /*245,222,179*/
   }
+  hr {
+    border: 0;
+    height: 1px;
+    background-color: #DAA520; /* Goldenrod color, reminiscent of freshly baked croissants */
+    width: 80%; /* Adjust as needed */
+    margin: 20px auto; /* Centers the hr and gives it spacing */
+}
