@@ -1,4 +1,5 @@
 const express = require('express');
+const socketIo = require('../sockets/socket')
 const userRouter= express.Router()
 const Userschema = require('../DB/UserSchema')
 const ItemSchema = require('../DB/Items') 
@@ -37,6 +38,10 @@ userRouter.get('/',async(req,res)=>{
             res.status(500).send(error)
      }
      
+})
+const io = socketIo.getIo()
+io.on("connection",(socket)=>{
+    console.log(`a user has connected ${socket.id}`)
 })
 
 module.exports = userRouter
