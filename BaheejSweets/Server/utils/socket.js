@@ -16,14 +16,14 @@ let io = new Server(server, {
   });
 
   io.on("connection", (socket) => {
-    console.log(`a user connected ${socket.id}`);
+    console.log(`a user is connecting ${socket.id}`);
     
     // Listen for authenticate event from the client
     socket.on("authenticate", async (data) => {
       try {
         const user = await UserSchema.findOne({ phoneNumber: data.phoneNumber });
         if (user) {
-          console.log(`User ${user.fullName} is a ${user.role}`);
+          console.log(`The user ${user.fullName} with the role of ${user.role} has logged on with the socket id of: ${socket.id}`);
         } else {
           console.log("User not found!");
         }
@@ -35,4 +35,4 @@ let io = new Server(server, {
 
   });
 
-module.exports = {server, io,socketToPhoneMap,phoneToSocketMap, app };
+module.exports = {server, app };

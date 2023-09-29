@@ -1,5 +1,4 @@
 const express = require('express');
-const socketIo = require('../utils/socket')
 const userRouter= express.Router()
 const Userschema = require('../DB/UserSchema')
 const ItemSchema = require('../DB/Items') 
@@ -17,8 +16,9 @@ userRouter.post('/login',async(req,res)=>{
             res.send("user found"+ user).status(200)
         }
         else{
+            //TODO: create a way to promote a user to an admin in the SA API
             const newUser= new Userschema(
-                {phoneNumber,fullName}
+                {phoneNumber,fullName,role:'user'}
                 )
             await newUser.save();
             res.send("a new user was created")
@@ -39,7 +39,6 @@ userRouter.get('/',async(req,res)=>{
      }
      
 })
-const io = socketIo.io
 
 
 module.exports = userRouter
