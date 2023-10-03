@@ -14,7 +14,30 @@ let io = new Server(server, {
       methods: ["GET", "POST","PATCH","PUT","DELETE"]
     }
   });
+  const jwt = require('jsonwebtoken'); // Assuming you are using jsonwebtoken for tokens
 
+// This middleware function will check if the user has a token
+  io.use((socket, next) => {
+    const token = socket.handshake.query.token;
+
+    if (token) {
+        // Verify the token
+        jwt.verify(token, 'YOUR_SECRET_KEY', (err, decoded) => {
+            if (err) {
+                return next(new Error('Authentication error'));
+            }
+            //TODO: below insert the proper socket payload a.k.a data to properly verify your user
+            // You can attach the decoded payload to the socket instance if you want
+            // For this example, I am assuming the payload contains a userId.
+            socket.userId = decoded.userId;
+            
+            // Call next() to move to the next middleware (or the connection event if there's no other middleware)
+            next();
+        });
+    } else {
+        next(new Error('Authentication error'));
+    }
+  });
   io.on("connection", (socket) => {
     console.log(`a user is connecting ${socket.id}`);
     
