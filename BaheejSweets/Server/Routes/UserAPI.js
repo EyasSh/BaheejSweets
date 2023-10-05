@@ -5,6 +5,7 @@ const ItemSchema = require('../DB/Items')
 /** 
 ** The DB/Item/Item is only used for get requests in the user so that they see the item details
 ** This means that the only person that writes using this schema is the admin
+//TODO: create a post request for ading an item and a request for updating a price of an already existing item
 */
 
 //post request for user sign in/login
