@@ -5,8 +5,34 @@ const ItemSchema = require('../DB/Items')
 /** 
 ** The DB/Item/Item is only used for get requests in the user so that they see the item details
 ** This means that the only person that writes using this schema is the admin
-//TODO: create a post request for ading an item and a request for updating a price of an already existing item
+//TODO: create a post request for adding an item and a request for updating a price of an already existing item
 */
+/**
+ * *Middlewares start
+ */
+async function requireRole(...roles) {
+    return async (req, res, next) => {
+        try {
+            const user = await Userschema.findOne({ phoneNumber: req.body.phoneNumber });
+
+            if (!user) {
+                return res.status(404).send('User not found');
+            }
+
+            const hasRequiredRole = roles.some(role => user.role === role);
+
+            if (!hasRequiredRole) {
+                return res.status(403).send('Access denied');
+            }
+
+            req.user = user;  // If needed later in the middleware chain
+            next();
+
+        } catch (error) {
+            res.status(500).send('Internal server error');
+        }
+    };
+}
 
 //post request for user sign in/login
 userRouter.post('/login',async(req,res)=>{
@@ -30,7 +56,7 @@ userRouter.post('/login',async(req,res)=>{
      }
      
 })
-userRouter.get('/',async(req,res)=>{
+userRouter.get('/fetchitems',async(req,res)=>{
      const userToken = req.body.token
      try{
         const items= await ItemSchema.find()
