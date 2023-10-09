@@ -2,6 +2,9 @@ const express = require('express');
 const userRouter= express.Router()
 const Userschema = require('../DB/UserSchema')
 const ItemSchema = require('../DB/Items') 
+const JWT= require("jsonwebtoken")
+const dotenv = require('dotenv')
+dotenv.config();
 /** 
 ** The DB/Item/Item is only used for get requests in the user so that they see the item details
 ** This means that the only person that writes using this schema is the admin
@@ -33,30 +36,72 @@ function requireRole(role) {
         }
     };
 }
+function generateToken(user){
+    let expiresIn;
+    if(user.role==='admin'){
+        expiresIn = '14h'
+    }
+    else{
+        expiresIn='7d'
+    }
+    const payload= {
+        userId:user._id,
+        userNumber:user.phoneNumber,
+        userRole:user.role
+    }
+    const token = JWT.sign(payload,process.env.TOKEN_SECRET,{expiresIn})
+    return token
+}
+function authenticateJWT(req,res,next){
+    const authHeader= req.headers.authorization;
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];  // "Bearer TOKEN"
+
+        jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+            if (err) {
+                return res.sendStatus(403);  // Forbidden, token is no longer valid
+            }
+
+            req.user = user;  // Attach the decoded payload to the request object
+            next();
+        });
+    } else {
+        res.sendStatus(401);  // Unauthorized, no token provided
+    }
+}
+/**
+ * *Middlewares end
+ */
 
 //post request for user sign in/login
-userRouter.post('/login',async(req,res)=>{
-     const {phoneNumber,fullName}=req.body
-     try{
-        const user = await Userschema.findOne(phoneNumber)
-        if(user){
-            res.send("user found"+ user).status(200)
-        }
-        else{
-            //TODO: create a way to promote a user to an admin in the SA API
-            const newUser= new Userschema(
-                {phoneNumber,fullName,role:'user'}
-                )
+userRouter.post('/login', async (req, res) => {
+    const { role, phoneNumber, fullName } = req.body;
+
+    try {
+        const user = await Userschema.findOne({ phoneNumber: phoneNumber });
+
+        if (user) {
+            const token = generateToken(user);
+            return res.status(200).json({ message: "user found", token });
+        } else {
+             //TODO: create a way to promote a user to an admin in the SA API
+            const newUser = new Userschema({
+                phoneNumber,
+                fullName,
+                role: 'user'
+            });
+
             await newUser.save();
-            res.send("a new user was created")
+            const token = generateToken(newUser);
+            return res.status(200).json({ message: "a new user was created", token });
         }
-     }
-     catch{
-            res.send("a server error occurred in the user login").status(500)
-     }
-     
-})
-userRouter.get('/fetchitems',async(req,res)=>{
+    } catch (error) {
+        console.error("Error during user login:", error);
+        return res.status(500).send("a server error occurred during user login");
+    }
+});
+
+userRouter.get('/fetchitems',authenticateJWT,async(req,res)=>{
      const userToken = req.body.token
      try{
         const items= await ItemSchema.find()
@@ -66,10 +111,22 @@ userRouter.get('/fetchitems',async(req,res)=>{
      }
      
 })
-userRouter.post('/addItem', requireRole('admin'),async(req,res)=>{
+userRouter.post('/addItem',authenticateJWT, requireRole('admin'),async(req,res)=>{
     const{item,token} = req.body
     if(!item){
         res.status(400).send('bad request')
+    }
+    /**
+     * *The following code will check for an item's existance
+     */
+    const itemExistsAlready = await ItemSchema.findOne(
+        $or[
+            {name:item.name},
+            {price:item.price}
+        ]
+    )
+    if(itemExistsAlready){
+        res.status(409).send("an item with a similar price or name already exits")
     }
     try{
         const newItem = new ItemSchema(
@@ -82,7 +139,7 @@ userRouter.post('/addItem', requireRole('admin'),async(req,res)=>{
         res.status(500).send("an error occurred in adding the item "+item.name)
     }
 })
-userRouter.patch('/updateItem',requireRole('admin'),async(req,res)=>{
+userRouter.patch('/updateItem',authenticateJWT,requireRole('admin'),async(req,res)=>{
     const item=req.body
     if (!item || !item.id) {
         return res.status(400).send('Item not sent or ID missing');
@@ -106,6 +163,24 @@ userRouter.patch('/updateItem',requireRole('admin'),async(req,res)=>{
         res.status(500).send('Internal server error');
     }
 })
+userRouter.delete('deleteItem',authenticateJWT,requireRole('admin'),async(req,res)=>{
+    //TODO: in the code review ask firas if you should change the token variable here to user obj
+    const item = req.body
+    if(!item){
+        res.status(400).send('bad request')
+    }
+    else{
+        try{
+            const itemToDel= await ItemSchema.findByIdAndDelete(item.id)
+            if(!item){
+                res.status(404).send(`the item you are trying to delete does not exist or is already deleted`)
+            }
+        }
+        catch{
+            res.status(500).send("Internal server error while trying to delete an item")
+        }
+    }
 
+})
 
 module.exports = userRouter
