@@ -37,6 +37,7 @@ io.use((socket, next) => {
 });
 io.on('connection', (socket) => {
 	console.log(`a user with the role ${socket.user.role} is connecting ${socket.id}`);
+	socketToPhoneMap.set(socket.id,socket.user.phoneNumber)
 
 	// Listen for authenticate event from the client
 	socket.on('authenticate', async (data) => {

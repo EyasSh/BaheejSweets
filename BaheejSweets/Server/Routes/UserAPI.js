@@ -3,8 +3,7 @@ const userRouter= express.Router()
 const Userschema = require('../DB/UserSchema')
 const ItemSchema = require('../DB/Items') 
 const JWT= require("jsonwebtoken")
-const dotenv = require('dotenv')
-dotenv.config();
+
 /** 
 ** The DB/Item/Item is only used for get requests in the user so that they see the item details
 ** This means that the only person that writes using this schema is the admin
@@ -62,7 +61,7 @@ function authenticateJWT(req,res,next){
                 return res.sendStatus(403);  // Forbidden, token is no longer valid
             }
 
-            req.user = user;  // Attach the decoded payload to the request object
+            req.body.user = user
             next();
         });
     } else {
@@ -102,7 +101,7 @@ userRouter.post('/login', async (req, res) => {
 });
 
 userRouter.get('/fetchitems',authenticateJWT,async(req,res)=>{
-     const userToken = req.body.token
+     const itemArr= req.body.items
      try{
         const items= await ItemSchema.find()
         res.status(200).json(items)
@@ -140,7 +139,7 @@ userRouter.post('/addItem',authenticateJWT, requireRole('admin'),async(req,res)=
     }
 })
 userRouter.patch('/updateItem',authenticateJWT,requireRole('admin'),async(req,res)=>{
-    const item=req.body
+    const item=req.body.item
     if (!item || !item.id) {
         return res.status(400).send('Item not sent or ID missing');
     }
@@ -165,7 +164,7 @@ userRouter.patch('/updateItem',authenticateJWT,requireRole('admin'),async(req,re
 })
 userRouter.delete('deleteItem',authenticateJWT,requireRole('admin'),async(req,res)=>{
     //TODO: in the code review ask firas if you should change the token variable here to user obj
-    const item = req.body
+    const item = req.body.item
     if(!item){
         res.status(400).send('bad request')
     }
@@ -182,5 +181,5 @@ userRouter.delete('deleteItem',authenticateJWT,requireRole('admin'),async(req,re
     }
 
 })
-
+//TODO: Program a super admin API
 module.exports = userRouter
