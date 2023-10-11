@@ -14,7 +14,6 @@ let io = new Server(server, {
 	}
 });
 const jwt = require('jsonwebtoken'); // Assuming you are using jsonwebtoken for tokens
-
 // This middleware function will check if the user has a token
 io.use((socket, next) => {
 	const token = socket.handshake.query.token;
@@ -35,10 +34,17 @@ io.use((socket, next) => {
 		next();
 	});
 });
+var AdminObj;
+var adminObjpopulated
 io.on('connection', (socket) => {
 	console.log(`a user with the role ${socket.user.role} is connecting ${socket.id}`);
 	socketToPhoneMap.set(socket.id,socket.user.phoneNumber)
+	phoneToSocketMap.set(socket.user.phoneNumber)
 
+	if(socket.user.role==='admin'){
+		AdminObj=user
+		adminObjpopulated = AdminObj!=null || AdminObj!=undefined
+	}
 	// Listen for authenticate event from the client
 	socket.on('authenticate', async (data) => {
 		try {
