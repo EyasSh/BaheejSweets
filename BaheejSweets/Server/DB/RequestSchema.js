@@ -27,7 +27,7 @@ const requestSchema = new mongoose.Schema({
     required: true,
   },
   items: {
-    type: [itemSchema], // This indicates an array of itemSchema objects
+    type: [UserItemSchema], // This indicates an array of itemSchema objects
     required: true,
   },
   active:{

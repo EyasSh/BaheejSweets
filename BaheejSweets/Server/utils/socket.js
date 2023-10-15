@@ -2,6 +2,8 @@ const http = require('http');
 const { Server } = require('socket.io');
 const app = require('./app');
 const UserSchema = require('../DB/UserSchema');
+const { Request}  = require("../DB/RequestSchema");
+
 
 const server = http.createServer(app);
 
@@ -15,12 +17,13 @@ let io = new Server(server, {
 });
 const jwt = require('jsonwebtoken'); // Assuming you are using jsonwebtoken for tokens
 // This middleware function will check if the user has a token
+const secret= process.env.TOKEN_SECRET
 io.use((socket, next) => {
 	const token = socket.handshake.query.token;
 
 	if (!token) return next(new Error('Authentication error'));
 	// Verify the token
-	jwt.verify(token, 'YOUR_SECRET_KEY',async  (err, decoded) => {
+	jwt.verify(token, secret,async  (err, decoded) => {
 		if (err) {
 			return next(new Error('Authentication error'));
 		}
@@ -35,31 +38,50 @@ io.use((socket, next) => {
 	});
 });
 var AdminObj;
-var adminObjpopulated
+var adminObjpopulated=false
 io.on('connection', (socket) => {
 	console.log(`a user with the role ${socket.user.role} is connecting ${socket.id}`);
 	socketToPhoneMap.set(socket.id,socket.user.phoneNumber)
-	phoneToSocketMap.set(socket.user.phoneNumber)
+	phoneToSocketMap.set(socket.user.phoneNumber,socket.id)
 
-	if(socket.user.role==='admin'){
-		AdminObj=user
+	if(adminObjpopulated==false && socket.user.role==='admin'){
+		AdminObj:{user,sid=socket.id}
 		adminObjpopulated = AdminObj!=null || AdminObj!=undefined
 	}
-	// Listen for authenticate event from the client
-	socket.on('authenticate', async (data) => {
-		try {
-			const user = await UserSchema.findOne({ phoneNumber: data.phoneNumber });
-			if (user) {
-				console.log(
-					`The user ${user.fullName} with the role of ${user.role} has logged on with the socket id of: ${socket.id}`
-				);
-			} else {
-				console.log('User not found!');
-			}
-		} catch (error) {
-			console.error('Error authenticating user:', error);
+	socket.on('send-request', async(data)=>{
+		if(!adminObjpopulated){
+			socket.emit('admin-not-connected-error',{message:"the store has not opened yet please try at a later time"})
 		}
+		else{
+			const request = new Request({
+				userId:socket.user._id,
+				userFullName:socket.user.fullName,
+				items:data,
+				active:true
+			})
+			await request.save()
+			let returnData={
+				userToReturnTo:socket.id,
+				number:socket.phoneNumber,
+				request
+			}
+			try{
+				socket.emit('send-request-to-admin',returnData).to(AdminObj.sid)
+			}
+			catch(e){
+				socket.emit('request-error',{message:`something went wrong wile processing your request ${e.message}`})
+			}
+			
+		}
+
 	});
+	//TODO: start prepping the request processed socket do not forget that the data for the socket is the 
+	/** 
+	 *  @param returnData //TODO that has already been set in the send-request socket event 
+	*/
+	 
+	
+	
 });
 
 module.exports = { server, app };
