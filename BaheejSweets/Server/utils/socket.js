@@ -61,6 +61,7 @@ io.on('connection', (socket) => {
 			})
 			await request.save()
 			let returnData={
+				userId:socket.user._id,
 				userToReturnTo:socket.id,
 				number:socket.phoneNumber,
 				request
@@ -78,9 +79,36 @@ io.on('connection', (socket) => {
 	//TODO: start prepping the request processed socket do not forget that the data for the socket is the 
 	/** 
 	 *  @param returnData //TODO that has already been set in the send-request socket event 
+	 * * The below socket is a socket sent by the admin back to the user as response to the user about the request status
 	*/
-	 
+	app.post('/processRequest', async (req, res) => {
+		const data = req.body; // Get the data sent by the client
+		
+		let request = data.request;
 	
+		try {
+			const updatedRequest = await Request.findOneAndUpdate(
+				{ userId: request.userId, active: true }, // Query criteria
+				{ active: false },                         // Update
+				{ new: true }                              // Returns the updated document
+			);
+	
+			if (!updatedRequest) {
+				return res.status(404).json({ message: 'No active request found for the user.' });
+			}
+	
+			// Using Socket.io to notify the client about the processed request
+			io.to(data.userToReturnTo).emit("items-ready", { message: `Your items are ready: ${data.request.items}` });
+	
+			return res.status(200).json({ message: 'Request processed successfully!' });
+		} catch (e) {
+			console.error('Error while processing request:', e.message);
+			return res.status(500).json({ message: `An error occurred while processing the request: ${e.message}` });
+		}
+	});
+	/*
+		TODO: Server is dobe
+	 */
 	
 });
 
