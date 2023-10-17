@@ -41,8 +41,15 @@ var AdminObj;
 var adminObjpopulated=false
 io.on('connection', (socket) => {
 	console.log(`a user with the role ${socket.user.role} is connecting ${socket.id}`);
-	socketToPhoneMap.set(socket.id,socket.user.phoneNumber)
-	phoneToSocketMap.set(socket.user.phoneNumber,socket.id)
+
+	if (phoneToSocketMap.has(socket.user.phoneNumber)) {
+		const oldSocketId = phoneToSocketMap.get(socket.user.phoneNumber);
+		socketToPhoneMap.delete(oldSocketId);
+	  }
+	
+	  socketToPhoneMap.set(socket.id, socket.user.phoneNumber);
+	  phoneToSocketMap.set(socket.user.phoneNumber, socket.id);
+	
 
 	if(adminObjpopulated==false && socket.user.role==='admin'){
 		AdminObj:{user,sid=socket.id}
@@ -106,9 +113,15 @@ io.on('connection', (socket) => {
 			return res.status(500).json({ message: `An error occurred while processing the request: ${e.message}` });
 		}
 	});
-	/*
-		TODO: Server is dobe
+	/**
+	 * * disconnect event
 	 */
+	socket.on('disconnect', () => {
+		console.log(`User with phone ${socket.user.phoneNumber} and socket ${socket.id} disconnected`);
+		socketToPhoneMap.delete(socket.id);
+		phoneToSocketMap.delete(socket.user.phoneNumber);
+	  });
+	 
 	
 });
 
