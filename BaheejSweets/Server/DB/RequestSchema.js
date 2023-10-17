@@ -33,6 +33,10 @@ const requestSchema = new mongoose.Schema({
   active:{
     type:Boolean,
     required:true
+  },
+  requestTime:{
+    type:Date,
+    default:Date.now
   }
 });
 const UserItem = mongoose.model('UserItem', UserItemSchema);
