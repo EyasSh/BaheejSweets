@@ -1,23 +1,64 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
-import { useState,useRef,useEffect } from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { RootStackParamList } from './Types/RootStackParams';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
-const Stack = createStackNavigator();
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Home'>;
 
-function HomeScreen() {
+const BottomTab = createBottomTabNavigator<RootStackParamList>();
+const TopTab = createMaterialTopTabNavigator<RootStackParamList>();
+
+type HomeScreenProps = {
+  navigation: HomeScreenNavigationProp;
+  route: HomeScreenRouteProp;
+};
+
+function HomeTopTabNavigator({navigation}:HomeScreenProps) {
   return (
-    <View style={{ backgroundColor:"magenta", flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <TopTab.Navigator>
+      <TopTab.Screen 
+        name="Home"
+        component={HomeScreen} 
+        listeners={{
+          focus: () => {
+            
+          }
+        }}
+      />
+      <TopTab.Screen 
+        name="Details" 
+        component={DetailsScreen} 
+        listeners={{
+          focus: () => {
+            
+          }
+        }}
+      />
+    </TopTab.Navigator>
+  );
+}
+
+function HomeScreen({ navigation }: HomeScreenProps) {
+  return (
+    <View style={{ backgroundColor: "magenta", flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Grove Street Home!</Text>
-      
+      <Button 
+        title="Go to Details"
+        onPress={() => navigation.navigate('Details')}
+      />
     </View>
   );
 }
 
 function DetailsScreen() {
   return (
-    <View style={{ backgroundColor:"cyan",flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ backgroundColor:"cyan", flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
     </View>
   );
@@ -26,43 +67,38 @@ function DetailsScreen() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home"
-         screenOptions={{
-          headerStyle: {
-            backgroundColor: 'cyan',
-          },
-          headerTintColor: 'white',  // Changes the color of header text and icons
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      >
-        <Stack.Screen 
-             name="Home" 
-             component={HomeScreen} 
-              options={{ 
-                 title: 'My Home',
-                headerRight: () => (
-                <Button
-                 onPress={() => alert('This is a right button!')}
-                title="Right Button"
-                color="#FF00FF"
-      />
-    ),
-  }} 
+      <BottomTab.Navigator>
+      <BottomTab.Screen 
+    name="Home" 
+    component={HomeTopTabNavigator}
+    options={{ 
+        headerTitle: () => (
+            <TextInput
+                style={{ 
+                    height: 40, 
+                    borderColor: 'blue', 
+                    borderWidth: 1, 
+                    width: '380%', 
+                    borderRadius: 7,
+                    paddingLeft: "10%",  // Adjust this value as needed.
+                }}
+                placeholder="Search..."
+            />
+        ),
+    }}
 />
 
-        <Stack.Screen name="Details" component={DetailsScreen} options={{title:"ass"}} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+<BottomTab.Screen name="Details" component={DetailsScreen} />
+</BottomTab.Navigator>
+</NavigationContainer>
+);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'cyan',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+container: {
+flex: 1,
+backgroundColor: 'cyan',
+alignItems: 'center',
+justifyContent: 'center',
+},
+})
