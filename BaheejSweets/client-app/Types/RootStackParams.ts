@@ -3,5 +3,7 @@ export type RootStackParamList = {
     Details: undefined;
     HomeTop:undefined
     DetailsTop:undefined
+    HomeTopTabsNavigator:undefined;
+    HomeTabs:undefined;
     Search: undefined;
 };

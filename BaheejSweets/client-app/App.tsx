@@ -1,48 +1,54 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { RootStackParamList } from './Types/RootStackParams';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator<RootStackParamList>();
+
+
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Home'>;
 
-const BottomTab = createBottomTabNavigator<RootStackParamList>();
-const TopTab = createMaterialTopTabNavigator<RootStackParamList>();
 
+const TopTab = createMaterialTopTabNavigator<RootStackParamList>();
+function TopTabWithHeader() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="HomeTabs" 
+        component={HomeTopTabNavigator}
+        options={{ 
+          headerTitle: () => <View style={{ height: 0, width: 0 }}></View>,
+          headerRight: () => (
+            <View style={{width: '90%', alignItems: 'center'}}>
+              <TextInput
+                style={{ height: 40, borderColor: 'gray', borderWidth:1, width: '90%', paddingRight:"3%", paddingLeft:"3%", marginRight:"25%"}}
+                placeholder="Search..."
+              />
+            </View>
+          ),
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+function HomeTopTabNavigator() {
+  return (
+    <TopTab.Navigator>
+      <TopTab.Screen name="Home" component={HomeScreen} />
+      <TopTab.Screen name="Details" component={DetailsScreen} />
+    </TopTab.Navigator>
+  );
+}
 type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
   route: HomeScreenRouteProp;
 };
-
-function HomeTopTabNavigator({navigation}:HomeScreenProps) {
-  return (
-    <TopTab.Navigator>
-      <TopTab.Screen 
-        name="Home"
-        component={HomeScreen} 
-        listeners={{
-          focus: () => {
-            
-          }
-        }}
-      />
-      <TopTab.Screen 
-        name="Details" 
-        component={DetailsScreen} 
-        listeners={{
-          focus: () => {
-            
-          }
-        }}
-      />
-    </TopTab.Navigator>
-  );
-}
 
 function HomeScreen({ navigation }: HomeScreenProps) {
   return (
@@ -67,38 +73,16 @@ function DetailsScreen() {
 export default function App() {
   return (
     <NavigationContainer>
-      <BottomTab.Navigator>
-      <BottomTab.Screen 
-    name="Home" 
-    component={HomeTopTabNavigator}
-    options={{ 
-        headerTitle: () => (
-            <TextInput
-                style={{ 
-                    height: 40, 
-                    borderColor: 'blue', 
-                    borderWidth: 1, 
-                    width: '380%', 
-                    borderRadius: 7,
-                    paddingLeft: "10%",  // Adjust this value as needed.
-                }}
-                placeholder="Search..."
-            />
-        ),
-    }}
-/>
-
-<BottomTab.Screen name="Details" component={DetailsScreen} />
-</BottomTab.Navigator>
-</NavigationContainer>
-);
+      <TopTabWithHeader />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
-container: {
-flex: 1,
-backgroundColor: 'cyan',
-alignItems: 'center',
-justifyContent: 'center',
-},
-})
+  container: {
+    flex: 1,
+    backgroundColor: 'cyan',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
