@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState,useEffect,useRef} from 'react';
-import { StyleSheet, Text, View, Button, TextInput,SafeAreaView } from 'react-native';
+import { ChocolateBar } from './Components/ChocoBar';
+import { StyleSheet, Text as RNTXT, View, Button, TextInput,SafeAreaView, FlatList } from 'react-native';
 import { NavigationContainer ,ParamListBase,Route, useIsFocused, useNavigation,useRoute } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { RootStackParamList } from './Types/RootStackParams';
@@ -8,6 +9,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialTopTabBar, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import { Text } from 'react-native-svg';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -93,11 +95,11 @@ function HomeScreen({ navigation }: HomeScreenProps) {
   }, [isFocused]);
   return (
     <View style={styles.home}>
-      <Text>Grove Street Home!</Text>
-      <Button 
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
-      />
+      <ChocolateBar width="150" height="300" viewBox="0 0 100 100" style={styles.coco} >
+        <Text x="50" y="100" fill="white" fontSize="10" textAnchor="middle">
+          Fuck The Police
+        </Text>
+      </ChocolateBar>
     </View>
   );
 }
@@ -111,7 +113,7 @@ function DetailsScreen() {
   }, [isFocused]);
   return (
     <View style={styles.details}>
-      <Text>Details Screen</Text>
+      <RNTXT>Details Screen</RNTXT>
     </View>
   );
 }
@@ -127,17 +129,13 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'cyan',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  
   home:{
     backgroundColor: "magenta", 
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center'
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',  
+    padding:"5%"
   },
   details:{
     backgroundColor:"cyan", 
@@ -153,5 +151,8 @@ const styles = StyleSheet.create({
     paddingRight:"3%", 
     paddingLeft:"3%", 
     marginRight:"25%"
+  },
+  coco:{
+    marginLeft:"5%"
   }
 });
