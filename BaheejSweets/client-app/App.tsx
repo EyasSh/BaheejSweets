@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState,useEffect,useRef} from 'react';
-import { ChocolateBar } from './Components/ChocoBar';
+import { Order } from './Components/ChocBar/Order';
 import { StyleSheet, Text as RNTXT, View, Button, TextInput,SafeAreaView, FlatList } from 'react-native';
 import { NavigationContainer ,ParamListBase,Route, useIsFocused, useNavigation,useRoute } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -10,6 +10,7 @@ import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialTopTabBar, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 import { Text } from 'react-native-svg';
+import { Item } from './Components/Order/Item';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -93,13 +94,14 @@ function HomeScreen({ navigation }: HomeScreenProps) {
       console.log("Home")
     }
   }, [isFocused]);
+  //TODO Important. Using SVG's is a waste as they tend not to work use pngs instead
   return (
     <View style={styles.home}>
-      <ChocolateBar width="150" height="300" viewBox="0 0 100 100" style={styles.coco} >
+      <Order width="150" height="300" viewBox="0 0 100 100" style={styles.coco} >
         <Text x="50" y="100" fill="white" fontSize="10" textAnchor="middle">
           Fuck The Police
         </Text>
-      </ChocolateBar>
+      </Order>
     </View>
   );
 }
@@ -113,7 +115,7 @@ function DetailsScreen() {
   }, [isFocused]);
   return (
     <View style={styles.details}>
-      <RNTXT>Details Screen</RNTXT>
+      <Item></Item>
     </View>
   );
 }
