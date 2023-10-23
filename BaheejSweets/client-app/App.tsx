@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState,useEffect,useRef} from 'react';
-import { Order } from './Components/ChocBar/Order';
-import { StyleSheet, Text as RNTXT, View, Button, TextInput,SafeAreaView, FlatList } from 'react-native';
+import { Order } from './Components/Order/Order';
+import { StyleSheet, Text as RNTXT, View,ScrollView, Button, TextInput,SafeAreaView, FlatList } from 'react-native';
 import { NavigationContainer ,ParamListBase,Route, useIsFocused, useNavigation,useRoute } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { RootStackParamList } from './Types/RootStackParams';
@@ -10,7 +10,7 @@ import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialTopTabBar, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 import { Text } from 'react-native-svg';
-import { Item } from './Components/Order/Item';
+import { Item } from './Components/Item/Item';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -115,7 +115,12 @@ function DetailsScreen() {
   }, [isFocused]);
   return (
     <View style={styles.details}>
-      <Item></Item>
+      <ScrollView>
+        <Item></Item>
+        <Item></Item>
+        <Item></Item>
+      </ScrollView>
+      
     </View>
   );
 }
@@ -137,13 +142,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',  
-    padding:"5%"
+    padding:"5%",
+    overflow:'visible',
   },
   details:{
-    backgroundColor:"cyan", 
+    backgroundColor:"cyan",
+    height:'auto', 
     flex: 1, 
     alignItems: 'center', 
-    justifyContent: 'center' 
+    overflow:'visible'
   },
   search:
   { height: 40, 
