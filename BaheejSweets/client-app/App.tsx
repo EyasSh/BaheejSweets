@@ -11,6 +11,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialTopTabBar, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 import { Text } from 'react-native-svg';
 import { Item } from './Components/Item/Item';
+import DeviceInfo from 'react-native-device-info'; //*future use for any device information
+import { ScreenOrientationInfo } from 'expo-screen-orientation'; //*This is for good component rendering in portrait and landscape
+//*go to your semi final convo with bard to see use
+
 
 const Stack = createStackNavigator<RootStackParamList>();
 

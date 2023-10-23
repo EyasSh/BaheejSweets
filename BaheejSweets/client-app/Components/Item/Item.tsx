@@ -6,7 +6,7 @@ const bg = require('../../assets/Notepad.png')
 export function Item(){
     return(
         
-                <BlurView
+        <BlurView
              // Note: `blurAmount` is available in expo-blur but not in @react-native-community/blur.
              tint='light'
              intensity={15}
