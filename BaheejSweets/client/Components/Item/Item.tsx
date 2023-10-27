@@ -1,88 +1,96 @@
-
+import React, { ReactNode } from 'react'
 import { StyleSheet, Text as RNTXT, View, Button, TextInput,SafeAreaView, FlatList, ImageBackground,Image } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { ItemDisplay } from '../../Types/ItemFetcher';
 const bg = require('../../assets/Notepad.png')
-export function Item(){
-    return(
-    
-        <BlurView
-            
-             // Note: `blurAmount` is available in expo-blur but not in @react-native-community/blur.
-             tint='light'
-             intensity={10}
-            style={styles.wrapper}  
-            blurReductionFactor={100}
-            >
-            <View style={styles.imageWrapper}>
-                 <Image source={bg} />
-            </View>
-            
-            <View style={styles.itemInfo}>
-                    <RNTXT>Item name here</RNTXT>
-                    <RNTXT>25 NIS</RNTXT>
-            </View>
-            
-        </BlurView>
-    
-        
-                 
-        
+interface IImage {
+    name: string;
+    path: number;
+  }
+  export class BackgroundImage {
+    private static images: Array<IImage> = [
+      {
+        name: 'Croissant',
+        path: require('../../assets/Croissant.png'),
+      },
+      {
+        name: 'donut',
+        path:require('../../assets/donut.png')
+      },
+      {
+        name: 'chocball',
+        path: require('../../assets/chocball.png')
+      },
+    ];
+    public static GetImage = (name: string) => {
+      const found = BackgroundImage.images.find(e => e.name === name);
+      return found ? found.path : undefined;
+    };
+  }
+export function Item(display:ItemDisplay): ReactNode {
+    // Add a type check to make sure that the imageName parameter is a string.
+    const [name,price,imageName]=[display.name,display.price,display.imageName]
+    if (typeof imageName !== 'string') {
+      throw new Error('The imageName parameter must be a string.');
+    }
+    const img= BackgroundImage.GetImage(imageName) ||bg
+    if(!img){
+        alert("No image found")
+    }
+    /**
+     * *When adding an image if it is bigger than the rest of the component make sure that the component may need to be resized again to fit them all
+     */
+    return (
+      <BlurView
+        tint='light'
+        intensity={10}
+        style={styles.wrapper}
+        blurReductionFactor={100}
+      >
+        <View style={styles.imageWrapper}>
+          <Image source={img} resizeMode='contain' style={{ marginTop: 0, width: '80%', height: '80%' }} />
+        </View>
+  
+        <View style={styles.itemInfo}>
+          <RNTXT>{name && name !== '' ? name : 'Item name is not defined'}</RNTXT>
+          <RNTXT>{price && price > 0 ? price.toString() : 'Price failed to render'}</RNTXT>
+        </View>
+      </BlurView>
     );
-}
-const styles =  StyleSheet.create({
+  }
+  const styles = StyleSheet.create({
     wrapper: {
-        overflow:'hidden',
-        flex:1,
-        flexDirection:'column',
-        gap: 70,
-        backgroundColor: 'rgba(255,255,255,0.6)',   //* Translating the background color
-        borderWidth: 0,                             //* Translating the border width
-        borderColor: 'rgb(255,255,255)',       //* Translating the border color
-        //* Unfortunately, React Native doesn't support backdrop-filter directly. 
-        //* You might need a third-party library or some workaround for that.
-        height:'auto',
-        width:'90%',
-        alignItems:'center',
-        justifyContent:"center",
-        borderRadius:30,
-        marginTop:"7.5%",
-        marginBottom:'7.5%',
+        overflow: 'hidden',
+        flexDirection: 'column',
+        backgroundColor: 'rgba(255,255,255,0.6)',
+        height: 350,
+        width: 350,
+        alignItems: 'center',
+        borderRadius: 30,
+        marginVertical: "2.5%",  // reduced margin for top and bottom
         zIndex: 1,
-         // iOS shadow properties
-         shadowColor: "#000",
-        shadowOffset: {
-            width: 4,  // shadow to the right
-            height: 4,  // shadow to the bottom
-        },
+        shadowColor: "#000",
+        shadowOffset: { width: 4, height: 4 },
         shadowOpacity: 0.5,
         shadowRadius: 4,
-        // * Android elevation property
-        elevation: 5
+        elevation: 5,
     },
-    imageWrapper:{
-        alignItems:"center",
-        justifyContent:'center',
-        marginTop:'auto',
-        height:"50%",
-        width:"100%",
-        zIndex:1,
-        
+    imageWrapper: {
+        alignItems: "center",
+        justifyContent: 'center',
+        width: "100%",
+        zIndex: 1,
     },
-
-    itemInfo:{
-        flexDirection:"row",
-        flex:0,
-        justifyContent:"space-between",
-        marginTop:'1%',
-        width:'70%',
-        height:"auto",
+    itemInfo: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: '70%',
         borderTopWidth: 2,
         borderBottomWidth: 2,
-        borderColor:'#D3D3D3',
-        padding:"0%",
-        zIndex:1,
-        
+        borderColor: '#D3D3D3',
+        zIndex: 1,
+        alignItems: "center",  // center the text elements vertically
     },
-})
+});

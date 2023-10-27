@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState,useEffect,useRef} from 'react';
+import { useState,useEffect,useRef, ReactNode} from 'react';
 import { Order } from './Components/Order/Order';
 import { StyleSheet, Text as RNTXT, View,ScrollView, Button, TextInput,SafeAreaView, FlatList } from 'react-native';
 import { NavigationContainer ,ParamListBase,Route, useIsFocused, useNavigation,useRoute } from '@react-navigation/native';
@@ -30,7 +30,7 @@ const TopTab = createMaterialTopTabNavigator<RootStackParamList>();
  *
  *  @returns React Component
  */
-function TopTabWithHeader() 
+function TopTabWithHeader():ReactNode 
 { 
   const [currentScreen, setCurrentScreen] = useState("Home");
   
@@ -54,7 +54,7 @@ function TopTabWithHeader()
     </Stack.Navigator>
   );
 }
-function HomeTopTabNavigator({ onTabChange }:any) {
+function HomeTopTabNavigator({ onTabChange }:any):ReactNode {
   // Instead of useRoute(), use useNavigation()
   //*This manages the onChange event and Lifts up the state to the StackNav in toptabwithheader do not remove the navigator and the use effect 
  
@@ -95,32 +95,32 @@ type HomeScreenProps = {
 };
 //*In both the home and details screen is focused is utilized to see if the tab is focused on or not
 // @ returns The hook isFocused returns a bool
-function HomeScreen({ navigation }: HomeScreenProps) {
+function HomeScreen({ navigation }: HomeScreenProps):ReactNode {
   const isFocused= useIsFocused();
   useEffect(() => {
     if (isFocused) {
       console.log("Home")
     }
   }, [isFocused]);
+  const pathPrefix='../../assets'
   //TODO Important. Using SVG's is a waste as they tend not to work use pngs instead
+  /**
+   * * When adding an image or a card remember to add its corresponding image name and path to the background class
+   * * also increase the scroll bar min height when adding new items in the app
+   */
+
   return (
     <LinearGradient style={styles.linearGradient}  colors={["#474bff", "#bc48ff"]}start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 0.5}}>
-        <ScrollView style={styles.home}  contentContainerStyle={{minHeight:'300%',alignItems: 'center', justifyContent: 'center'}}>
-              <Item></Item>
-              <Item></Item>
-              <Item></Item>
-              <Item></Item>
-          </ScrollView>
+    <ScrollView style={styles.home} contentContainerStyle={{ minHeight:'155%', alignItems: 'center', justifyContent: 'center' }}>
+      <Item name='Criossant' price={0.3} imageName='Croissant'></Item>
+      <Item name='Donut' price={15} imageName='donut'></Item>
+      <Item name='Chocolate Balls' price={0.7} imageName='chocball'></Item>
+    </ScrollView>
     </LinearGradient>
-        
-    
-          
-    
-    
   );
 }
 
-function DetailsScreen() {
+function DetailsScreen():ReactNode {
   const isFocused= useIsFocused();
   useEffect(() => {
     if (isFocused) {
@@ -153,6 +153,8 @@ export default function App() {
 const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
+    height:'100%',
+    padding:0,
     position: "absolute",
     top: 0,
     left: 0,
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
   home:{
     flex: 1,
     padding:0,
-    overflow:'hidden',
+    overflow:'visible',
     scrollbarStyle: 'outside-overlay-right',
   },
   details:{
