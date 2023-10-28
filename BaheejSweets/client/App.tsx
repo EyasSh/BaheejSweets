@@ -62,16 +62,20 @@ function HomeTopTabNavigator({ onTabChange }:any):ReactNode {
   return (
     <TopTab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: 'magenta',       // Notice the change here
-        tabBarInactiveTintColor: 'cyan',    // Color for the inactive tab labels
+        tabBarActiveTintColor: 'black',       // Notice the change here
+        tabBarInactiveTintColor: 'rgb(153, 153, 153)', 
+        tabBarStyle:{
+          zIndex:7   
+        },   // Color for the inactive tab labels
         tabBarIndicatorStyle: {
-        backgroundColor: 'magenta',     // Color of the active tab indicator
+        backgroundColor: 'black',     // Color of the active tab indicator
         height: 2,
-        zIndex:3                   // Height of the active tab indicator
+        zIndex:7                   // Height of the active tab indicator
       },
       tabBarLabelStyle: {
-        fontWeight: 'bold'  // Set font weight to bold
-      }
+        fontWeight: 'bold',  // Set font weight to bold
+        zIndex:7
+      },
       
     }}
     
@@ -110,7 +114,7 @@ function HomeScreen({ navigation }: HomeScreenProps):ReactNode {
    */
 
   return (
-    <LinearGradient style={styles.linearGradient}  colors={["#474bff", "#bc48ff"]}start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 0.5}}>
+    <LinearGradient style={styles.linearGradient}  colors={["#ffbf00", "#bc48ff"]}start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 0.5}}>
     <ScrollView style={styles.home} contentContainerStyle={{ minHeight:'155%', alignItems: 'center', justifyContent: 'center' }}>
       <Item name='Criossant' price={0.3} imageName='Croissant'></Item>
       <Item name='Donut' price={15} imageName='donut'></Item>
@@ -160,6 +164,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+    backgroundColor:'lime',
   },
   home:{
     flex: 1,

@@ -45,9 +45,9 @@ export function Item(display:ItemDisplay): ReactNode {
     return (
       <BlurView
         tint='light'
-        intensity={10}
+        intensity={2}
         style={styles.wrapper}
-        blurReductionFactor={100}
+        blurReductionFactor={1}
       >
         <View style={styles.imageWrapper}>
           <Image source={img} resizeMode='contain' style={{ marginTop: 0, width: '80%', height: '80%' }} />
