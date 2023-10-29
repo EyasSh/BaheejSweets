@@ -1,16 +1,14 @@
 import React, { ReactNode } from 'react'
 import { StyleSheet, Text as RNTXT, View, Button, TextInput,SafeAreaView, FlatList, ImageBackground,Image } from 'react-native';
 import { BlurView } from 'expo-blur';
-import { ScrollView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { ItemDisplay } from '../../Types/ItemFetcher';
+import { ItemDisplay } from '../../Types/ItemDisplay';
 const bg = require('../../assets/Notepad.png')
 interface IImage {
     name: string;
     path: number;
   }
-  export class BackgroundImage {
-    private static images: Array<IImage> = [
+export class BackgroundImage {
+    public static images: Array<IImage> = [
       {
         name: 'Croissant',
         path: require('../../assets/Croissant.png'),
@@ -26,7 +24,12 @@ interface IImage {
     ];
     public static GetImage = (name: string) => {
       const found = BackgroundImage.images.find(e => e.name === name);
-      return found ? found.path : undefined;
+      if(found){
+        return found.path
+      }
+      else{
+        return bg
+      }
     };
   }
 export function Item(display:ItemDisplay): ReactNode {
@@ -35,7 +38,7 @@ export function Item(display:ItemDisplay): ReactNode {
     if (typeof imageName !== 'string') {
       throw new Error('The imageName parameter must be a string.');
     }
-    const img= BackgroundImage.GetImage(imageName) ||bg
+    const img= BackgroundImage.GetImage(imageName)
     if(!img){
         alert("No image found")
     }

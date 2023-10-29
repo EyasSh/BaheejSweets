@@ -115,7 +115,7 @@ function HomeScreen({ navigation }: HomeScreenProps):ReactNode {
 
   return (
     <LinearGradient style={styles.linearGradient}  colors={["#ffbf00", "#bc48ff"]}start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 0.5}}>
-    <ScrollView style={styles.home} contentContainerStyle={{ minHeight:'155%', alignItems: 'center', justifyContent: 'center' }}>
+    <ScrollView style={styles.scrllView} contentContainerStyle={{ minHeight:'155%', alignItems: 'center', justifyContent: 'center' }}>
       <Item name='Criossant' price={0.3} imageName='Croissant'></Item>
       <Item name='Donut' price={15} imageName='donut'></Item>
       <Item name='Chocolate Balls' price={0.7} imageName='chocball'></Item>
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor:'lime',
   },
-  home:{
+  scrllView:{
     flex: 1,
     padding:0,
     overflow:'visible',
