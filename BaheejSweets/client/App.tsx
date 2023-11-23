@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState,useEffect,useRef, ReactNode} from 'react';
 import { Order } from './Components/Order/Order';
-import { StyleSheet, Text as RNTXT, View,ScrollView, Button, TextInput,SafeAreaView, FlatList } from 'react-native';
+import { StyleSheet, Text as RNTXT, View,ScrollView, Button, TextInput,SafeAreaView, FlatList, Dimensions } from 'react-native';
 import { NavigationContainer ,ParamListBase,Route, useIsFocused, useNavigation,useRoute } from '@react-navigation/native';
 import { createMaterialTopTabNavigator,MaterialTopTabBar, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
 import { RootStackParamList } from './Types/RootStackParams';
@@ -19,7 +19,7 @@ import { ScreenOrientationInfo } from 'expo-screen-orientation'; //*This is for 
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-
+const {height,width}= Dimensions.get('screen')
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 type HomeScreenRouteProp = RouteProp<RootStackParamList, 'Home'>;
@@ -37,19 +37,22 @@ function TopTabWithHeader():ReactNode
   return (
     <Stack.Navigator>
       <Stack.Screen 
-        name="HomeTabs" 
-        children={() => <HomeTopTabNavigator />}
-        options={{ 
-          headerTitle: () => <View style={{ height: 0, width: 0 }}></View>,
-          headerRight: () => (
-            <View style={{width: '90%', alignItems: 'center'}}>
-              <TextInput
-                style={styles.search}
-                placeholder="Search..."
-              />
-            </View>
-          ),
+        name="HomeTop" 
+        children={() => <HomeTopTabNavigator style={{minHeight:'100%'}} />}
+        options={{
+          headerShown:false,
         }}
+        // options={{ 
+        //   headerTitle: () => <View style={{ height: 0, width: 0 }}></View>,
+        //   headerRight: () => (
+        //     <View style={{width: '90%', alignItems: 'center'}}>
+        //       <TextInput
+        //         style={styles.search}
+        //         placeholder="Search..."
+        //       />
+        //     </View>
+        //   ),
+        // }}
       />
     </Stack.Navigator>
   );
@@ -60,37 +63,39 @@ function HomeTopTabNavigator({ onTabChange }:any):ReactNode {
  
 
   return (
-    <TopTab.Navigator
-      screenOptions={{
-        tabBarActiveTintColor: 'black',       // Notice the change here
-        tabBarInactiveTintColor: 'rgb(153, 153, 153)', 
-        tabBarStyle:{
-          zIndex:7   
-        },   // Color for the inactive tab labels
-        tabBarIndicatorStyle: {
-        backgroundColor: 'black',     // Color of the active tab indicator
-        height: 2,
-        zIndex:7                   // Height of the active tab indicator
-      },
-      tabBarLabelStyle: {
-        fontWeight: 'bold',  // Set font weight to bold
-        zIndex:7
-      },
-      
-    }}
     
-    >
-      <TopTab.Screen 
-        name="Home"  
-        component={HomeScreen} 
-        options={{title:"Home"}}
-      />
-      <TopTab.Screen 
-          name="Details" 
-          component={DetailsScreen} 
-          options={{title:"Details"}}
-      />
-    </TopTab.Navigator>
+       <TopTab.Navigator
+         screenOptions={{
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'rgb(153, 153, 153)',
+          tabBarStyle: {
+          zIndex:2
+          
+        },
+        tabBarIndicatorStyle: {
+           backgroundColor: 'black',
+           height: 2,
+      // Remove zIndex property
+          },
+      tabBarLabelStyle: {
+        fontWeight: 'bold',
+      // Remove zIndex property
+      },
+  }}
+>
+  <TopTab.Screen
+    name="Home"
+    component={HomeScreen}
+    options={{ title: 'Home' }}
+  />
+  <TopTab.Screen
+    name="Details"
+    component={DetailsScreen}
+    options={{ title: 'Details' }}
+  />
+  </TopTab.Navigator>
+
+
   );
 }
 type HomeScreenProps = {
@@ -115,7 +120,7 @@ function HomeScreen({ navigation }: HomeScreenProps):ReactNode {
 
   return (
     <LinearGradient style={styles.linearGradient}  colors={["#ffbf00", "#bc48ff"]}start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 0.5}}>
-    <ScrollView style={styles.scrllView} contentContainerStyle={{ minHeight:'155%', alignItems: 'center', justifyContent: 'center' }}>
+    <ScrollView style={styles.scrllView} contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', paddingBottom:height*0.01, paddingTop:height*0.01, }}>
       <Item name='Criossant' price={0.3} imageName='Croissant'></Item>
       <Item name='Donut' price={15} imageName='donut'></Item>
       <Item name='Chocolate Balls' price={0.7} imageName='chocball'></Item>
@@ -146,7 +151,7 @@ function DetailsScreen():ReactNode {
 
 export default function App() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, paddingTop:'10%' }}>
       <NavigationContainer>
         <TopTabWithHeader />
       </NavigationContainer>
@@ -156,21 +161,16 @@ export default function App() {
 
 const styles = StyleSheet.create({
   linearGradient: {
-    flex: 1,
-    height:'100%',
-    padding:0,
     position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-    backgroundColor:'lime',
   },
   scrllView:{
     flex: 1,
-    padding:0,
-    overflow:'visible',
     scrollbarStyle: 'outside-overlay-right',
+    zIndex:10,
   },
   details:{
     backgroundColor:"cyan",

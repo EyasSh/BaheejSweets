@@ -47,10 +47,10 @@ export function Item(display:ItemDisplay): ReactNode {
      */
     return (
       <BlurView
-        tint='light'
-        intensity={2}
+        tint='dark'
+        intensity={5}
         style={styles.wrapper}
-        blurReductionFactor={1}
+        
       >
         <View style={styles.imageWrapper}>
           <Image source={img} resizeMode='contain' style={{ marginTop: 0, width: '80%', height: '80%' }} />
@@ -65,20 +65,21 @@ export function Item(display:ItemDisplay): ReactNode {
   }
   const styles = StyleSheet.create({
     wrapper: {
-        overflow: 'hidden',
         flexDirection: 'column',
-        backgroundColor: 'rgba(255,255,255,0.6)',
+        backgroundColor: 'rgba(255,255,255,0.4)',
         height: 350,
         width: 350,
         alignItems: 'center',
         borderRadius: 30,
+        borderBlockColor:'rgba(255,255,255,0.4)',
         marginVertical: "2.5%",  // reduced margin for top and bottom
-        zIndex: 1,
+        zIndex: 0,
         shadowColor: "#000",
         shadowOffset: { width: 4, height: 4 },
         shadowOpacity: 0.5,
-        shadowRadius: 4,
+        shadowRadius: 0,
         elevation: 5,
+        overflow:'hidden',
     },
     imageWrapper: {
         alignItems: "center",
@@ -90,8 +91,8 @@ export function Item(display:ItemDisplay): ReactNode {
         flexDirection: "row",
         justifyContent: "space-between",
         width: '70%',
-        borderTopWidth: 2,
-        borderBottomWidth: 2,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
         borderColor: '#D3D3D3',
         zIndex: 1,
         alignItems: "center",  // center the text elements vertically
