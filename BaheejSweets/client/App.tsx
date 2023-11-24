@@ -32,13 +32,14 @@ const TopTab = createMaterialTopTabNavigator<RootStackParamList>();
  */
 function TopTabWithHeader():ReactNode 
 { 
-  const [currentScreen, setCurrentScreen] = useState("Home");
+  const [isHomeFocused,setHomeFocused] = useState<Boolean>(true)
+  const [isDetailsFocused,setDetailsFocused] = useState<Boolean>(false)
   
   return (
     <Stack.Navigator>
       <Stack.Screen 
         name="HomeTop" 
-        children={() => <HomeTopTabNavigator style={{minHeight:'100%'}} />}
+        children={() => <HomeTopTabNavigator />}
         options={{
           headerShown:false,
         }}
@@ -57,7 +58,7 @@ function TopTabWithHeader():ReactNode
     </Stack.Navigator>
   );
 }
-function HomeTopTabNavigator({ onTabChange }:any):ReactNode {
+function HomeTopTabNavigator():ReactNode {
   // Instead of useRoute(), use useNavigation()
   //*This manages the onChange event and Lifts up the state to the StackNav in toptabwithheader do not remove the navigator and the use effect 
  
@@ -161,7 +162,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   linearGradient: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
     bottom: 0,
@@ -170,7 +171,6 @@ const styles = StyleSheet.create({
   scrllView:{
     flex: 1,
     scrollbarStyle: 'outside-overlay-right',
-    zIndex:10,
   },
   details:{
     backgroundColor:"cyan",

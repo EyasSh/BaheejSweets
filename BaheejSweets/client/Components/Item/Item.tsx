@@ -47,8 +47,8 @@ export function Item(display:ItemDisplay): ReactNode {
      */
     return (
       <BlurView
-        tint='dark'
-        intensity={5}
+        tint='default'
+        intensity={10}
         style={styles.wrapper}
         
       >
@@ -66,12 +66,12 @@ export function Item(display:ItemDisplay): ReactNode {
   const styles = StyleSheet.create({
     wrapper: {
         flexDirection: 'column',
-        backgroundColor: 'rgba(255,255,255,0.4)',
+        backgroundColor: 'rgba(255,255,255,0.27)',
         height: 350,
         width: 350,
         alignItems: 'center',
         borderRadius: 30,
-        borderBlockColor:'rgba(255,255,255,0.4)',
+        borderBlockColor:'rgba(255,255,255,0.27)',
         marginVertical: "2.5%",  // reduced margin for top and bottom
         zIndex: 0,
         shadowColor: "#000",
