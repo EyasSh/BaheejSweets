@@ -3,15 +3,16 @@ import { useState,useEffect,useRef, ReactNode} from 'react';
 import { Order } from './Components/Order/Order';
 import { StyleSheet, Text as RNTXT, View,ScrollView, Button, TextInput,SafeAreaView, FlatList, Dimensions } from 'react-native';
 import { NavigationContainer ,ParamListBase,Route, useIsFocused, useNavigation,useRoute } from '@react-navigation/native';
-import { createMaterialTopTabNavigator,MaterialTopTabBar, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator,MaterialTopTabBar, MaterialTopTabBarProps, MaterialTopTabNavigationProp } from '@react-navigation/material-top-tabs';
 import { RootStackParamList } from './Types/RootStackParams';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationOptions, StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Text } from 'react-native-svg';
 import { Item } from './Components/Item/Item';
 import DeviceInfo from 'react-native-device-info'; //*future use for any device information
 import { LinearGradient } from 'expo-linear-gradient';
+import { StackNav } from './Types/StackNavOptions';
 import { ScreenOrientationInfo } from 'expo-screen-orientation'; //*This is for good component rendering in portrait and landscape
 
 //*go to your semi final convo with bard to see usenpm update
@@ -32,14 +33,21 @@ const TopTab = createMaterialTopTabNavigator<RootStackParamList>();
  */
 function TopTabWithHeader():ReactNode 
 { 
-  const [isHomeFocused,setHomeFocused] = useState<Boolean>(true)
-  const [isDetailsFocused,setDetailsFocused] = useState<Boolean>(false)
+  const [isHomeFocused, setIsHomeFocused] = useState<boolean>(true);
+  const [isDetailsFocused, setIsDetailsFocused] = useState<boolean>(false);
+
+  // Update state based on isHomeFocused received from HomeScreen
+  useEffect(() => {
+    if (isHomeFocused !== undefined) {
+      setIsHomeFocused(isHomeFocused);
+    }
+  }, [isHomeFocused]);
   
   return (
     <Stack.Navigator>
       <Stack.Screen 
         name="HomeTop" 
-        children={() => <HomeTopTabNavigator />}
+        children={() => <HomeTopTabNavigator isFocused={isHomeFocused} />}
         options={{
           headerShown:false,
         }}
@@ -58,47 +66,45 @@ function TopTabWithHeader():ReactNode
     </Stack.Navigator>
   );
 }
-function HomeTopTabNavigator():ReactNode {
-  // Instead of useRoute(), use useNavigation()
-  //*This manages the onChange event and Lifts up the state to the StackNav in toptabwithheader do not remove the navigator and the use effect 
+function HomeTopTabNavigator(onTabChange: any): ReactNode {
+  
+  /**
+   * *This manages the onChange event and Lifts up the state to the StackNav in toptabwithheader do not remove the navigator and the use effect*/ 
  
 
   return (
-    
-       <TopTab.Navigator
-         screenOptions={{
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'rgb(153, 153, 153)',
-          tabBarStyle: {
-          zIndex:2
-          
-        },
-        tabBarIndicatorStyle: {
-           backgroundColor: 'black',
-           height: 2,
-      // Remove zIndex property
-          },
-      tabBarLabelStyle: {
-        fontWeight: 'bold',
-      // Remove zIndex property
-      },
-  }}
->
-  <TopTab.Screen
-    name="Home"
-    component={HomeScreen}
-    options={{ title: 'Home' }}
-  />
-  <TopTab.Screen
-    name="Details"
-    component={DetailsScreen}
-    options={{ title: 'Details' }}
-  />
-  </TopTab.Navigator>
+    <TopTab.Navigator
+          screenOptions={{
+              tabBarActiveTintColor: 'black',
+              tabBarInactiveTintColor: 'rgb(153, 153, 153)',
+              tabBarStyle: {
+              zIndex:2
+      
+              },
+              tabBarIndicatorStyle: {
+              backgroundColor: 'black',
+              height: 2,
+              },
+            tabBarLabelStyle: {
+            fontWeight: 'bold',
 
-
+            },
+        }}
+    >
+      <TopTab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'Home' }}
+      />
+      <TopTab.Screen
+        name="Details"
+        component={DetailsScreen}
+        options={{ title: 'Details' }}
+      />
+    </TopTab.Navigator>
   );
 }
+
 type HomeScreenProps = {
   navigation: HomeScreenNavigationProp;
   route: HomeScreenRouteProp;
@@ -106,12 +112,12 @@ type HomeScreenProps = {
 //*In both the home and details screen is focused is utilized to see if the tab is focused on or not
 // @ returns The hook isFocused returns a bool
 function HomeScreen({ navigation }: HomeScreenProps):ReactNode {
-  const isFocused= useIsFocused();
+  const isHomeFocused= useIsFocused();
   useEffect(() => {
-    if (isFocused) {
+    if (isHomeFocused) {
       console.log("Home")
     }
-  }, [isFocused]);
+  }, [isHomeFocused,navigation]);
   const pathPrefix='../../assets'
   //TODO Important. Using SVG's is a waste as they tend not to work use pngs instead
   /**
